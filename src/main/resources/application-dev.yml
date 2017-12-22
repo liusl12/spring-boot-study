@@ -1,0 +1,9 @@
+server:
+  port: 8090
+  context-path: /helloboot
+book:
+  name: history
+  auther: liushunli
+logging:
+  level: DEBUG
+  file: ./mylog.log
