@@ -23,4 +23,8 @@ public interface UserMapper {
     更新
      */
     public void updateUser(User user);
+    /*
+    删除
+     */
+    public void deleteUser(Integer id);
 }

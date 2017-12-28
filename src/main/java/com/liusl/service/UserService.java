@@ -23,4 +23,8 @@ public interface UserService {
     根据ID更新User信息
      */
     public void updateUser(User user,Integer id);
+    /*
+    根据ID删除User信息
+     */
+    public void deleteUser(Integer id);
 }

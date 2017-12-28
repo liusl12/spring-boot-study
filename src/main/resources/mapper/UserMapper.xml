@@ -23,4 +23,7 @@
           age = #{age}
         WHERE id = #{id}
     </update>
+    <delete id="deleteUser">
+        delete FROM TB_USER WHERE id = #{id}
+    </delete>
 </mapper>

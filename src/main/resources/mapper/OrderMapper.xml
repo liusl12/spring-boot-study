@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liusl.mapper.OrderMapper">
+    <!--根据Order Id查询订单信息-->
+    <select id="selectByOrderId" resultMap="orderResultMap">
+        SELECT u.*,o.ID AS OID,o.CODE,o.TOTAL
+        FROM TB_USERS u,TB_ORDER o
+        WHERE u.ID = o.USER_ID AND o.ID = #{id}
+    </select>
+    <!--根据用户ID 查询订单信息-->
+    <select id="selectByUserId" resultType="com.liusl.model.Order">
+        SELECT * FROM TB_ORDER WHERE USER_ID = #{id}
+    </select>
+    <resultMap id="orderResultMap" type="Order">
+        <id property="id" column="ID" />
+        <result property="code" column="CODE" />
+        <result property="total" column="TOTAL" />
+        <!--多对一关联，多个订单有一个用户-->
+        <association property="user2" javaType="User2">
+            <id property="id" column="ID" />
+            <result property="username" column="USERNAME" />
+            <result property="loginname" column="LOGINNAME" />
+            <result property="password" column="PASSWORD" />
+            <result property="phone" column="PHONE" />
+            <result property="address" column="ADDRESS" />
+        </association>
+        <!--多对多关联collection-->
+        <collection property="articles" javaType="ArrayList" ofType="com.liusl.model.Article" fetchType="lazy" column="OID" select="com.liusl.mapper.ArticleMapper.selectArticleByOrderId">
+            <id property="id" column="ID" />
+            <result property="name" column="NAME" />
+            <result property="price" column="PRICE" />
+            <result property="remark" column="REMARK" />
+        </collection>
+    </resultMap>
+</mapper>

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.sun.xml.internal.ws.api.message.Packet.Status.Request;
+
 /**
  * created by l1 on 2017/12/21.
  */
@@ -47,7 +49,7 @@ public class UserController {
     /*
     更新User信息
      */
-    @RequestMapping(value = "/user/update",method = RequestMethod.POST)
+    @RequestMapping(value = "/user/update",method = RequestMethod.PUT)
     public User updateUser(@RequestParam("id") Integer id,
                            @RequestParam("name") String name,
                            @RequestParam("sex") String sex,
@@ -56,5 +58,13 @@ public class UserController {
         user.setId(id);
         userService.updateUser(user,id);
         return this.selectUser(id);
+    }
+    /*
+    根据ID删除User信息
+     */
+    @RequestMapping(value = "/user/delete",method = RequestMethod.DELETE)
+    public String deleteUser(@RequestParam("id") Integer id){
+        userService.deleteUser(id);
+        return "success";
     }
 }
